@@ -1,5 +1,6 @@
 package sample.employee;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.data.jpa.domain.Specification;
@@ -20,11 +21,13 @@ public class EmployeeController {
         this.employeeRepository = employeeRepository;
     }
 
+    @JsonView(DataTablesOutput.View.class)
     @RequestMapping(value = "/employees", method = RequestMethod.GET)
     public DataTablesOutput<Employee> list(@Valid DataTablesInput input) {
         return employeeRepository.findAll(input);
     }
 
+    @JsonView(DataTablesOutput.View.class)
     @RequestMapping(value = "/employees", method = RequestMethod.POST)
     public DataTablesOutput<Employee> listPOST(@Valid @RequestBody DataTablesInput input) {
         return employeeRepository.findAll(input);
